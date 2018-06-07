@@ -9,18 +9,23 @@ class SongsList extends Component {
     return this.props.data.songs.map(({id, title}) => {
       return (
         <li key={id} className="collection-item">
-          {title}
-          <span className="right" onClick={() => this.onSongDelete(id)}><i className="material-icons">delete</i></span>
+          <Link to={`songs/${id}`}>
+            {title}
+          </Link>
+          <span onClick={() => this.onSongDelete(id)}><i className="material-icons">delete</i></span>
         </li>
       )
     })
   };
 
+  showSongDetails = (id) => {
+
+  };
+
   onSongDelete = (id) => {
     this.props.mutate({
-      variables: { id },
-      refetchQueries: [{ query }]
-    })
+      variables: { id }
+    }).then(() => this.props.data.refetch());
   };
 
   render() {
