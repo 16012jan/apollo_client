@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { graphql } from 'react-apollo';
 import {Link} from 'react-router';
 import fetchSong from '../queries/fetchSong';
+import LyricForm from './LyricCreate';
 
 class SongDetail extends Component {
   renderLyrics = () => {
@@ -9,7 +10,7 @@ class SongDetail extends Component {
     return song.lyrics.map(({id, content}) => (
       <li key={id} className="collection-item">{content}</li>
     ))
-  }
+  };
 
   render() {
     const {song} = this.props.data;
@@ -21,10 +22,11 @@ class SongDetail extends Component {
        <ul className="collection">
          { this.renderLyrics() }
        </ul>
+       <LyricForm songId={song.id}/>
      </div>
     )
   }
-}
+};
 
 export default graphql(fetchSong, {
   options: (props) => {return { variables: { id: props.params.id } } }
